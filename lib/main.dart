@@ -1,7 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:test_project/firebase_options.dart';
-import 'package:test_project/pages/auth_page.dart';
+import 'package:test_project/pages/home_page.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,12 +19,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     
     return MaterialApp(
-      title: 'Test for SQL',
+      title: 'Her Yes Club',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.brown
       ),
-      home: AuthPage(),
+      home: HomePage(),
     );
   }
 }
