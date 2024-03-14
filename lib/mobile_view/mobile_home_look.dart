@@ -18,11 +18,8 @@ class _MobileLookState extends State<MobileLook> {
       ),
       drawer: const MobileDrawer(),
 
-      body:SingleChildScrollView(
-        child: SizedBox(
-          height: MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top,
-          child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
+      body:
+          Column(
           children: [
             Padding(padding:
             EdgeInsets.all(8),
@@ -56,8 +53,6 @@ class _MobileLookState extends State<MobileLook> {
               )
           ],
           ),
-      ),
-        )
           );
   }
 }

@@ -2,19 +2,27 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:test_project/components/mobile_drawer.dart';
 import 'package:test_project/components/text_field.dart';
+import 'package:test_project/mobile_view/mobile_register.dart';
 
-class LoginPage extends StatelessWidget {
-  LoginPage({super.key});
+class MobileLogin extends StatefulWidget {
 
-  final emailaddController = TextEditingController();
-  final passwordController = TextEditingController();
+  MobileLogin({super.key,});
+
+  @override
+  State<MobileLogin> createState() => MobileLoginState();
+}
+
+class MobileLoginState extends State<MobileLogin> {
+
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
 
   void signUserIn() async{
 
     try{
       await FirebaseAuth.instance.signInWithEmailAndPassword(
-      email: emailaddController.text.trim(),
-      password: passwordController.text.trim()
+      email: _emailController.text.trim(),
+      password: _passwordController.text.trim()
     );
     } on FirebaseAuthException catch (e){
       if(e.code == 'user-not-found'){
@@ -28,8 +36,10 @@ class LoginPage extends StatelessWidget {
 
   @override
   void dispose(){
-    emailaddController.dispose();
-    passwordController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+
+    super.dispose();
   }
 
   void WrongEmailEntered(){
@@ -86,14 +96,14 @@ class LoginPage extends StatelessWidget {
             
             SizedBox(height: 20),
             MyTextField(
-              controller: emailaddController,
+              controller: _emailController,
               hintText: 'EmailAddress',
               obscureText: false,
             ),
 
             SizedBox(height: 20),
             MyTextField(
-              controller: passwordController,
+              controller: _passwordController,
               hintText: 'Password',
               obscureText: true,
             ),
@@ -118,6 +128,28 @@ class LoginPage extends StatelessWidget {
                 fontSize: 18
               ),)),
             ),
+            ),
+
+            SizedBox(height: 15,),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+              Text('Not a member?'),
+              GestureDetector(
+                onTap: (){
+                  // widget.showRegisterPage;
+                  Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => MobileRegister()),
+                );
+                },
+                child: Text(' Register Now!',
+                style: TextStyle(
+                  color: Colors.blue
+            ),
+            )
+              )
+            ],
             )
           ],
         ),
