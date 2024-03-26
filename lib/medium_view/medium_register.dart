@@ -37,7 +37,7 @@ class _MediumRegisterState extends State<MediumRegister> {
         ),
         ),
       ),
-      drawer: const MobileDrawer(),
+      drawer: MobileDrawer(),
 
       body: SingleChildScrollView(
       child: SizedBox(

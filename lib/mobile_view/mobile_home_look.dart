@@ -16,7 +16,7 @@ class _MobileLookState extends State<MobileLook> {
         backgroundColor: Colors.brown[50],
         title: Text("HER YES CLUB"),
       ),
-      drawer: const MobileDrawer(),
+      drawer: MobileDrawer(),
 
       body:
           Column(

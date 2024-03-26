@@ -64,7 +64,7 @@ class LoginPage extends StatelessWidget {
         backgroundColor: Colors.brown[50],
         title: Text("HER YES CLUB"),
       ),
-      drawer: const MobileDrawer(),
+      drawer: MobileDrawer(),
 
     body: SafeArea(
       child: Center(

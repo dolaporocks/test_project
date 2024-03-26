@@ -22,7 +22,7 @@ class _MobileProfileState extends State<MobileProfile> {
         ),
         ),
       ),
-      drawer: const MobileDrawer(),
+      drawer: MobileDrawer(),
       body: ElevatedButton(
         onPressed: (){
           FirebaseAuth.instance.signOut();

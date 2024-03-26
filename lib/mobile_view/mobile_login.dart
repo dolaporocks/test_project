@@ -72,50 +72,45 @@ class MobileLoginState extends State<MobileLogin> {
     backgroundColor: Colors.brown[50],
       appBar: AppBar(
         backgroundColor: Colors.brown[50],
-        title: Text("HER YES CLUB"),
+        title: const Text("HER YES CLUB"),
       ),
-      drawer: const MobileDrawer(),
+      drawer: MobileDrawer(),
 
     body: SafeArea(
       child: Center(
         child: Column(
           children: [
-            // SizedBox(height: 60),
 
-            // Image.asset('assets/images/hyc2.JPG',
-            // width: 370,
-            // height: 300,),
-
-            SizedBox(height: 50),
-            Text('Sign In Now!!!',
+            const SizedBox(height: 50),
+            const Text('Sign In Now!!!',
             style: TextStyle(
               fontSize: 20,
               color: Colors.brown
             ),),
 
             
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             MyTextField(
               controller: _emailController,
               hintText: 'EmailAddress',
               obscureText: false,
             ),
 
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             MyTextField(
               controller: _passwordController,
               hintText: 'Password',
               obscureText: true,
             ),
 
-            SizedBox(height: 25),
+            const SizedBox(height: 25),
             GestureDetector(
             onTap: (){
               signUserIn();
             },
             child: Container(
-              padding: EdgeInsets.all(25),
-            margin: EdgeInsets.symmetric(horizontal: 25),
+              padding: const EdgeInsets.all(25),
+            margin: const EdgeInsets.symmetric(horizontal: 25),
             decoration: BoxDecoration(
               color: Colors.brown,
               borderRadius: BorderRadius.circular(8),
@@ -130,11 +125,11 @@ class MobileLoginState extends State<MobileLogin> {
             ),
             ),
 
-            SizedBox(height: 15,),
+            const SizedBox(height: 15,),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-              Text('Not a member?'),
+              const Text('Not a member?'),
               GestureDetector(
                 onTap: (){
                   // widget.showRegisterPage;
@@ -143,7 +138,7 @@ class MobileLoginState extends State<MobileLogin> {
                   MaterialPageRoute(builder: (context) => MobileRegister()),
                 );
                 },
-                child: Text(' Register Now!',
+                child: const Text(' Register Now!',
                 style: TextStyle(
                   color: Colors.blue
             ),
@@ -155,8 +150,6 @@ class MobileLoginState extends State<MobileLogin> {
         ),
     ),
     ),
-
-      
     );
   }
 }

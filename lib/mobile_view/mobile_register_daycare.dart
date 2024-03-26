@@ -1,22 +1,25 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:test_project/components/button.dart';
 import 'package:test_project/components/mobile_drawer.dart';
+import 'package:test_project/components/select_list.dart';
 import 'package:test_project/components/text_field.dart';
 import 'package:test_project/mobile_view/mobile_login.dart';
 import 'package:test_project/pages/auth_page.dart';
 
-class MobileRegister extends StatefulWidget {
-  //final VoidCallback showLoginPage;
-  MobileRegister({super.key,});
+
+
+class RegisterDayCare extends StatefulWidget {
+  const RegisterDayCare({super.key});
 
   @override
-  State<MobileRegister> createState() => _MobileRegisterState();
-
+  State<RegisterDayCare> createState() => _RegisterDayCareState();
 }
 
-class _MobileRegisterState extends State<MobileRegister> {
+class _RegisterDayCareState extends State<RegisterDayCare> {
+
+  List<String> selectedItems = [];
+
   final TextEditingController _firstNameController = TextEditingController();
   final TextEditingController _lastNameController = TextEditingController();
   final TextEditingController _userNameController = TextEditingController();
@@ -28,6 +31,32 @@ class _MobileRegisterState extends State<MobileRegister> {
   final TextEditingController _phonenumController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _cpasswordController = TextEditingController();
+
+  void showCertifications() async{
+
+    final List<String> certifications = [
+      'First Aid Certified',
+      'CPR Approved',
+      'Option 3',
+      'Option 4',
+      'Option 5'
+    ];
+
+    final List<String>? results = await showDialog(
+      context: context,
+      builder: (BuildContext context){
+        return SelectList(items: certifications,);
+      }
+    );
+
+    if(results != null){
+      setState((){
+        selectedItems = results;
+      });
+
+    }
+  }
+  
 
 
   Future signUp() async{
@@ -48,13 +77,13 @@ class _MobileRegisterState extends State<MobileRegister> {
         _countryController.text.trim(),
         _postalCodeController.text.trim(),
         int.parse(_phonenumController.text.trim()),
-        _passwordController.text.trim()        );
+        _passwordController.text.trim());
     }
   }
 
   Future addUserDetails(String firstName, String lastName, String userName, String email, String street,
   String city, String country, String postalCode, int phoneNum, String password) async{
-    await FirebaseFirestore.instance.collection('users').add({
+    await FirebaseFirestore.instance.collection('daycare_providers').add({
       'first name': firstName,
       'last name': lastName,
       'user name': userName,
@@ -64,7 +93,8 @@ class _MobileRegisterState extends State<MobileRegister> {
       'country': country,
       'postalCode': postalCode,
       'phoneNum': phoneNum,
-      'password': password    });
+      'password': password
+    });
   }
 
   @override
@@ -96,10 +126,10 @@ class _MobileRegisterState extends State<MobileRegister> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+  return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.brown[50],
-        title: const Text("REGISTER HERE",
+        title: const Text("Register as a Daycare Provider",
         style: TextStyle(
           color: Colors.brown,
           fontWeight: FontWeight.bold
@@ -107,7 +137,6 @@ class _MobileRegisterState extends State<MobileRegister> {
         ),
       ),
       drawer: MobileDrawer(),
-
       body: SafeArea(
       child: SingleChildScrollView(
         child: Column(children: [
@@ -200,12 +229,48 @@ class _MobileRegisterState extends State<MobileRegister> {
               obscureText: true,
             ),
 
-            const SizedBox(height: 25),
-            MyButton(
-              onTap: (){
-                signUp();
-              }
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: (){
+                showCertifications();
+              },
+              child: const Text('Pick the Certifications you have here!',
+              style: TextStyle(
+              color: Colors.brown
+              ),
+              ),
             ),
+
+            const Divider(height: 20,),
+            Wrap(
+              spacing: 2.0,
+              children: selectedItems
+              .map((e) => Chip(
+                label: Text(e),
+              )).toList(),
+            ),
+
+            const SizedBox(height: 25),
+          GestureDetector(
+            onTap: (){
+              signUp();
+            },
+            child: Container(
+              padding: EdgeInsets.all(25),
+            margin: EdgeInsets.symmetric(horizontal: 25),
+            decoration: BoxDecoration(
+              color: Colors.brown,
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: const Center(
+              child: Text("GET VERIFIED",
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+                fontSize: 18
+              ),)),
+            )
+          ),
 
             SizedBox(height: 25,),
             Row(
@@ -219,7 +284,7 @@ class _MobileRegisterState extends State<MobileRegister> {
                   MaterialPageRoute(builder: (context) => MobileLogin()),
                 );
                 },
-                child: Text(' Sign In',
+                child: const Text(' Sign In',
                 style: TextStyle(
                   color: Colors.blue
             ),
@@ -231,6 +296,7 @@ class _MobileRegisterState extends State<MobileRegister> {
         ),
       )
     ),
+      
     );
   }
 }

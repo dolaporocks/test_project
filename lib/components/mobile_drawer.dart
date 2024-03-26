@@ -1,12 +1,52 @@
 import 'package:flutter/material.dart';
 import 'package:test_project/mobile_view/mobile_register.dart';
+import 'package:test_project/mobile_view/mobile_register_daycare.dart';
 import 'package:test_project/pages/about_page.dart';
 import 'package:test_project/pages/auth_page.dart';
 import 'package:test_project/pages/contact_page.dart';
 import 'package:test_project/pages/home_page.dart';
 
-class MobileDrawer extends StatelessWidget {
-  const MobileDrawer({super.key});
+class MobileDrawer extends StatefulWidget {
+  MobileDrawer({super.key,});
+
+  @override
+  MobileDrawerState createState() => MobileDrawerState();
+
+}
+
+class MobileDrawerState extends State<MobileDrawer> {
+  void _showDialog(){
+    showDialog(
+      context: context,
+      builder: (context){
+        return AlertDialog(
+          backgroundColor: Colors.brown[50],
+          title: const Text('DayCare Provider or Parent'),
+          content: const Text('Are you a DayCare Provider'),
+          actions: [
+            MaterialButton(
+              onPressed: (){
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => RegisterDayCare()),
+                );
+              },
+              child: Text('Yes'),
+              ),
+              MaterialButton(
+              onPressed: (){
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => MobileRegister()),
+                );
+              },
+              child: Text('No'),
+              ),
+          ],
+        );
+      }
+      );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -65,10 +105,7 @@ class MobileDrawer extends StatelessWidget {
             ListTile(
               leading: Icon(Icons.app_registration_rounded),
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => MobileRegister()),
-                );},
+                _showDialog();},
               title: Text('REGISTER HERE'),
             ),
           ],

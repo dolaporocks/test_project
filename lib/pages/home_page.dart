@@ -22,7 +22,7 @@ class _HomePageState extends State<HomePage> {
         mobileScreen: const MobileLook(),
         mediumScreen: const MediumLook(),
         desktopScreen: const DesktopLook(),
-      )
+      ),
     );
   }
 }

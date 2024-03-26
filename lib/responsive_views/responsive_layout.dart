@@ -9,29 +9,29 @@ class ResponsiveLayout extends StatelessWidget {
   , required this.mediumScreen, required this.desktopScreen, });
 
   static bool isMobileLook(BuildContext context){
-    return MediaQuery.of(context).size.width < 600;
+    return MediaQuery.of(context).size.width < 576;
   }
 
   static bool isDesktopLook(BuildContext context){
-    return MediaQuery.of(context).size.width > 1200;
+    return MediaQuery.of(context).size.width > 992;
   }
 
   static bool isMediumScreen(BuildContext context){
-    return MediaQuery.of(context).size.width >= 600 &&
-    MediaQuery.of(context).size.width <= 1200;
+    return MediaQuery.of(context).size.width >= 576 &&
+    MediaQuery.of(context).size.width <= 992;
   }
 
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints){
-        if(constraints.maxWidth < 600) {
-          return mobileScreen;
-        }else if (constraints.maxWidth < 1200){
+        if(constraints.maxWidth > 992) {
+          return desktopScreen;
+        }else if (constraints.maxWidth > 576 && mediumScreen != null){
           return mediumScreen;
         }
         else{
-          return desktopScreen;
+          return mobileScreen;
         }
       },
       );

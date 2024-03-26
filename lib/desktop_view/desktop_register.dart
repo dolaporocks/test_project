@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:test_project/components/button.dart';
 import 'package:test_project/components/text_field.dart';
 import 'package:test_project/components/top_bar_content.dart';
-import 'package:test_project/pages/auth_page.dart';
+import 'package:test_project/desktop_view/desktop_auth.dart';
+import 'package:test_project/desktop_view/desktop_login.dart';
 
 class DkRegister extends StatefulWidget {
   DkRegister({super.key});
@@ -32,6 +33,7 @@ void initState(){
 
   final TextEditingController _firstNameController = TextEditingController();
   final TextEditingController _lastNameController = TextEditingController();
+  final TextEditingController _userNameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _streetController = TextEditingController();
   final TextEditingController _cityController = TextEditingController();
@@ -47,7 +49,7 @@ void initState(){
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: _emailController.text.trim(),
         password: _passwordController.text.trim()).then(
-          (value) => Navigator.push(context, MaterialPageRoute(builder: (context) => AuthPage())));
+          (value) => Navigator.push(context, MaterialPageRoute(builder: (context) => DesktopAuth())));
 
       addUserDetails(
         _firstNameController.text.trim(),
@@ -117,9 +119,6 @@ void initState(){
                 decoration: BoxDecoration(
                   image: DecorationImage(
                     image: AssetImage('assets/images/hyc4.JPG'))
-                ),
-                child: Center(
-                  child: Text('Her Yes Club'),
                 ),
               )
               ),
@@ -212,6 +211,27 @@ void initState(){
                     onTap: (){
                       signUp();
                     }
+                  ),
+
+                  SizedBox(height: 25,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                    Text('Already a member? '),
+                    GestureDetector(
+                      onTap: (){
+                        Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => DkLogin()),
+                      );
+                      },
+                      child: Text(' Sign In',
+                      style: TextStyle(
+                        color: Colors.blue
+                  ),
+                  )
+                    )
+                  ],
                   )
               ]
               ),
